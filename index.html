@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>山东大学泉心支教团</title>
+  <style>
+    :root{
+      --primary:#900021;
+      --primary-dark:#6f0019;
+      --bg:#fcf8f6;
+      --card:#ffffff;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --line:rgba(144,0,33,.10);
+      --shadow:0 18px 45px rgba(144,0,33,.08);
+      --radius:24px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:"Microsoft YaHei", "PingFang SC", "Noto Sans SC", Arial, sans-serif;
+      color:var(--text);
+      background:var(--bg);
+      line-height:1.6;
+    }
+    a{text-decoration:none;color:inherit}
+    img{display:block;max-width:100%}
+    .container{width:min(1180px,calc(100% - 32px));margin:0 auto}
+    .section{padding:88px 0}
+    .section-title{
+      max-width:760px;margin:0 auto 46px;text-align:center;
+    }
+    .section-title .eyebrow{
+      display:inline-block;padding:8px 14px;border-radius:999px;
+      background:rgba(144,0,33,.05);color:var(--primary);
+      border:1px solid rgba(144,0,33,.12);font-size:14px;font-weight:700;
+      margin-bottom:14px;
+    }
+    .section-title h2{margin:0;font-size:clamp(28px,5vw,48px);line-height:1.18}
+    .section-title p{margin:14px auto 0;color:var(--muted);font-size:17px;max-width:720px}
+
+    /* Navbar */
+    .nav-wrap{
+      position:fixed;left:0;right:0;top:0;z-index:1000;padding:16px 0;
+    }
+    .navbar{
+      height:86px;background:rgba(144,0,33,.92);backdrop-filter:blur(12px);
+      border:1px solid rgba(255,255,255,.18);border-radius:24px;
+      box-shadow:0 18px 45px rgba(144,0,33,.18);
+      display:flex;align-items:center;justify-content:space-between;padding:0 20px;
+    }
+    .brand{display:flex;align-items:center;gap:14px;min-width:0}
+    .brand-logos{display:flex;gap:10px;flex-shrink:0}
+    .logo{
+      width:48px;height:48px;border-radius:50%;overflow:hidden;
+      border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.1);
+      display:flex;align-items:center;justify-content:center;
+    }
+    .logo.white{background:#fff;border-color:rgba(144,0,33,.12)}
+    .logo img{width:100%;height:100%;object-fit:contain;padding:3px}
+    .brand small{display:block;color:rgba(255,255,255,.72);font-size:13px}
+    .brand strong{display:block;color:#fff;font-size:18px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .nav-links{display:flex;align-items:center;gap:28px}
+    .nav-links a{color:rgba(255,255,255,.88);font-size:15px;font-weight:600}
+    .nav-links a:hover{color:#fff}
+    .btn-primary{
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      padding:14px 24px;border-radius:999px;border:none;cursor:pointer;
+      background:var(--primary);color:#fff;font-weight:700;box-shadow:var(--shadow);
+      transition:.2s ease;
+    }
+    .btn-primary:hover{transform:translateY(-1px);background:var(--primary-dark)}
+    .btn-light{
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      padding:14px 24px;border-radius:999px;border:1px solid rgba(255,255,255,.28);
+      background:#fff;color:var(--primary);font-weight:700;transition:.2s ease;
+    }
+    .btn-light:hover{transform:translateY(-1px)}
+    .btn-ghost{
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      padding:14px 24px;border-radius:999px;border:1px solid rgba(255,255,255,.28);
+      background:rgba(255,255,255,.10);backdrop-filter:blur(6px);color:#fff;font-weight:600;
+    }
+    .menu-btn{
+      display:none;width:42px;height:42px;border-radius:999px;border:1px solid rgba(255,255,255,.22);
+      align-items:center;justify-content:center;color:#fff;background:transparent
+    }
+    .mobile-menu{
+      display:none;margin-top:10px;background:#fff;border-radius:20px;padding:12px;
+      box-shadow:var(--shadow);border:1px solid var(--line)
+    }
+    .mobile-menu a{
+      display:block;padding:12px 14px;border-radius:14px;font-weight:600;color:#374151
+    }
+    .mobile-menu a:hover{background:rgba(144,0,33,.05);color:var(--primary)}
+
+    /* Hero */
+    .hero{
+      position:relative;min-height:100vh;overflow:hidden;color:#fff;
+      display:flex;align-items:center;
+    }
+    .hero-bg{
+      position:absolute;inset:0;background-size:cover;background-position:center;
+      transition:opacity .8s ease;
+    }
+    .hero-overlay{
+      position:absolute;inset:0;
+      background:
+        linear-gradient(90deg, rgba(0,0,0,.62), rgba(0,0,0,.30)),
+        linear-gradient(0deg, rgba(144,0,33,.22), rgba(144,0,33,.22));
+    }
+    .hero-content{
+      position:relative;z-index:2;padding-top:90px;
+      width:min(1180px,calc(100% - 32px));margin:0 auto;
+    }
+    .hero-pill{
+      display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;
+      background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.20);backdrop-filter:blur(6px);
+      font-size:14px;margin-bottom:18px
+    }
+    .hero h1{margin:0;max-width:760px;font-size:clamp(38px,7vw,74px);line-height:1.06}
+    .hero p{margin:20px 0 0;max-width:760px;font-size:clamp(17px,2.4vw,22px);color:rgba(255,255,255,.88)}
+    .hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:28px}
+    .hero-controls{
+      position:absolute;left:50%;bottom:28px;transform:translateX(-50%);
+      display:flex;gap:10px;z-index:2;padding:10px 14px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.16);background:rgba(0,0,0,.20);backdrop-filter:blur(8px)
+    }
+    .dot{
+      width:11px;height:11px;border-radius:999px;border:none;background:rgba(255,255,255,.50);cursor:pointer
+    }
+    .dot.active{width:34px;background:#fff}
+    .hero-arrow{
+      position:absolute;top:50%;transform:translateY(-50%);z-index:2;
+      width:48px;height:48px;border-radius:999px;border:1px solid rgba(255,255,255,.22);
+      background:rgba(0,0,0,.18);color:#fff;display:flex;align-items:center;justify-content:center;
+      font-size:24px;cursor:pointer
+    }
+    .hero-arrow.left{left:18px}
+    .hero-arrow.right{right:18px}
+
+    /* Stats */
+    .stats{
+      position:relative;margin-top:-74px;z-index:5;
+    }
+    .stats-grid{
+      display:grid;grid-template-columns:repeat(4,1fr);gap:14px;
+      background:rgba(255,255,255,.86);backdrop-filter:blur(10px);padding:18px;border-radius:30px;
+      border:1px solid rgba(255,255,255,.72);box-shadow:0 18px 40px rgba(144,0,33,.07)
+    }
+    .stat-card{
+      background:#fcf8f6;border-radius:22px;padding:24px 18px;text-align:center
+    }
+    .stat-card .value{font-size:38px;font-weight:800;color:var(--primary)}
+    .stat-card .label{margin-top:6px;color:var(--muted);font-size:15px}
+
+    /* Generic cards */
+    .grid-2{display:grid;grid-template-columns:1.05fr .95fr;gap:28px}
+    .card{
+      background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+      padding:34px;box-shadow:var(--shadow)
+    }
+    .soft-card{
+      background:#fcf8f6;border-radius:20px;padding:20px
+    }
+    .mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .mini-grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+    .icon-box{
+      width:46px;height:46px;border-radius:16px;background:rgba(144,0,33,.10);color:var(--primary);
+      display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:12px
+    }
+    .label{font-size:14px;color:var(--primary);font-weight:700}
+    .card h3{margin:2px 0 0;font-size:30px}
+    .card p{color:var(--muted)}
+
+    /* footprint */
+    .footprint-layout{display:grid;grid-template-columns:1.1fr .9fr;gap:28px}
+    .map-frame{
+      overflow:hidden;border-radius:24px;border:1px solid var(--line);background:#fff;padding:18px;box-shadow:var(--shadow)
+    }
+    .map-inner{background:#fcf8f6;border-radius:20px;padding:8px}
+    .map-inner img{width:100%;border-radius:18px;object-fit:contain}
+
+    /* gallery */
+    .gallery-grid{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:18px;
+      grid-auto-rows:220px;
+    }
+    .gallery-item{
+      position:relative;border-radius:24px;overflow:hidden;background:#ddd
+    }
+    .gallery-item.large{grid-column:span 2}
+    .gallery-item.tall{grid-row:span 2}
+    .gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+    .gallery-item:hover img{transform:scale(1.05)}
+    .gallery-item::after{
+      content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,.08), rgba(0,0,0,.62));
+    }
+    .gallery-caption{
+      position:absolute;left:0;right:0;bottom:0;z-index:2;padding:22px;color:#fff
+    }
+    .gallery-caption h4{margin:0 0 6px;font-size:22px}
+    .gallery-caption p{margin:0;font-size:14px;color:rgba(255,255,255,.85)}
+
+    /* recruitment */
+    .recruit-layout{display:grid;grid-template-columns:1fr .95fr;gap:28px}
+    .stack{display:flex;flex-direction:column;gap:24px}
+    .timeline{display:flex;flex-direction:column;gap:18px}
+    .timeline-item{display:flex;gap:16px}
+    .timeline-node{display:flex;flex-direction:column;align-items:center}
+    .timeline-badge{
+      width:46px;height:46px;border-radius:999px;background:var(--primary);color:#fff;font-weight:800;
+      display:flex;align-items:center;justify-content:center
+    }
+    .timeline-line{width:1px;flex:1;background:rgba(144,0,33,.20);margin-top:8px}
+    .cta-banner{
+      background:var(--primary);color:#fff;border-radius:24px;padding:28px
+    }
+    .cta-banner p{color:rgba(255,255,255,.86)}
+    .qr-box{
+      width:220px;height:220px;border-radius:28px;background:#fff;border:1px dashed rgba(144,0,33,.25);
+      color:var(--primary);display:flex;align-items:center;justify-content:center;box-shadow:inset 0 0 0 1px rgba(144,0,33,.03)
+    }
+
+    .qr-image-box{
+      display:flex;align-items:center;justify-content:center;
+      width:220px;height:220px;border-radius:28px;background:#fff;border:1px dashed rgba(144,0,33,.25);
+      overflow:hidden;box-shadow:inset 0 0 0 1px rgba(144,0,33,.03)
+    }
+    .qr-image-box img{width:100%;height:100%;object-fit:contain}
+    .footer-qr-box{
+      margin-top:16px;max-width:240px;border-radius:28px;background:#fcf8f6;
+      border:1px dashed rgba(144,0,33,.20);padding:10px;
+    }
+    .footer-qr-box img{width:100%;height:auto;display:block;border-radius:18px;object-fit:contain;background:#fff}
+
+
+    footer{
+      border-top:1px solid var(--line);background:#fff;padding:56px 0
+    }
+    .footer-grid{display:grid;grid-template-columns:1.2fr .8fr .7fr;gap:24px}
+    .muted{color:var(--muted)}
+    .contact-item{display:flex;gap:10px;align-items:flex-start;margin-bottom:14px}
+
+    @media (max-width: 960px){
+      .nav-links{display:none}
+      .menu-btn{display:flex}
+      .grid-2,.footprint-layout,.recruit-layout,.footer-grid{grid-template-columns:1fr}
+      .mini-grid{grid-template-columns:1fr}
+      .mini-grid-2{grid-template-columns:1fr}
+      .gallery-grid{grid-template-columns:1fr 1fr}
+      .gallery-item.large{grid-column:span 2}
+      .stats-grid{grid-template-columns:repeat(2,1fr)}
+      .hero-arrow{display:none}
+    }
+    @media (max-width: 640px){
+      .navbar{height:auto;padding:14px 16px}
+      .brand strong{font-size:15px}
+      .brand small{font-size:12px}
+      .logo{width:42px;height:42px}
+      .gallery-grid{grid-template-columns:1fr}
+      .gallery-item.large{grid-column:span 1}
+      .gallery-item.tall{grid-row:span 1}
+      .stats-grid{grid-template-columns:1fr 1fr}
+      .section{padding:72px 0}
+      .card{padding:24px}
+      .hero-content{padding-top:110px}
+      .qr-box{width:100%;height:220px}
+    }
+  </style>
+</head>
+<body>
+  <div class="nav-wrap">
+    <div class="container">
+      <div class="navbar">
+        <a href="#home" class="brand">
+          <div class="brand-logos">
+            <div class="logo"><img src="assets/sdu-logo.png" alt="山东大学校徽"></div>
+            <div class="logo white"><img src="assets/quanxin-badge.jpg" alt="泉心支教团徽章"></div>
+          </div>
+          <div>
+            <small>Shandong University</small>
+            <strong>山东大学泉心支教团</strong>
+          </div>
+        </a>
+        <nav class="nav-links">
+          <a href="#home">首页</a>
+          <a href="#about">关于泉心</a>
+          <a href="#footprint">团队足迹</a>
+          <a href="#gallery">支教风采</a>
+          <a href="#recruitment">招新通道</a>
+          <a href="#recruitment" class="btn-light" style="padding:12px 18px">立即报名</a>
+        </nav>
+        <button class="menu-btn" id="menuBtn">☰</button>
+      </div>
+      <div class="mobile-menu" id="mobileMenu">
+        <a href="#home">首页</a>
+        <a href="#about">关于泉心</a>
+        <a href="#footprint">团队足迹</a>
+        <a href="#gallery">支教风采</a>
+        <a href="#recruitment">招新通道</a>
+      </div>
+    </div>
+  </div>
+
+  <section class="hero" id="home">
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-overlay"></div>
+
+    <button class="hero-arrow left" id="prevBtn">‹</button>
+    <button class="hero-arrow right" id="nextBtn">›</button>
+
+    <div class="hero-content">
+      <div class="hero-pill">❤ 公益 · 教育 · 陪伴</div>
+      <h1 id="heroTitle">泉心泉意，点亮星空</h1>
+      <p id="heroText">以爱为桥，把知识与陪伴带到更远的地方。山东大学泉心支教团，用青年热忱守护每一份成长。</p>
+      <div class="hero-actions">
+        <a href="#recruitment" class="btn-light">立即报名 →</a>
+        <a href="#about" class="btn-ghost">了解更多</a>
+      </div>
+    </div>
+
+    <div class="hero-controls" id="dots"></div>
+  </section>
+
+  <div class="stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-card"><div class="value">10+</div><div class="label">支教服务点</div></div>
+        <div class="stat-card"><div class="value">300+</div><div class="label">累计志愿者</div></div>
+        <div class="stat-card"><div class="value">2000+</div><div class="label">受益学生</div></div>
+        <div class="stat-card"><div class="value">8年</div><div class="label">持续服务年限</div></div>
+      </div>
+    </div>
+  </div>
+
+  <section class="section" id="about">
+    <div class="container">
+      <div class="section-title">
+        <div class="eyebrow">关于泉心</div>
+        <h2>以教育为光，以陪伴为路</h2>
+        <p>山东大学泉心支教团以青年志愿服务为核心，持续关注乡村教育与儿童成长，让更多孩子因陪伴而自信，因知识而看见更远的未来。</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <p style="font-size:18px;line-height:1.9;margin-top:0">
+            泉心支教团成立以来，始终坚持“以心育人、以爱同行”的初心，组织山东大学青年志愿者走进乡村与基层学校，开展课程教学、成长陪伴、兴趣拓展与公益调研等多元服务。团队长期关注教育公平议题，形成了集课程设计、队员培训、长期跟踪与社会联动于一体的公益模式。
+          </p>
+          <div class="mini-grid">
+            <div class="soft-card">
+              <div class="icon-box">📍</div>
+              <strong>支教地点</strong>
+              <p>山东及周边乡村学校、社区课堂与暑期实践基地。</p>
+            </div>
+            <div class="soft-card">
+              <div class="icon-box">📚</div>
+              <strong>服务内容</strong>
+              <p>基础课程教学、兴趣课堂、陪伴辅导、家访调研等。</p>
+            </div>
+            <div class="soft-card">
+              <div class="icon-box">🏆</div>
+              <strong>主要成就</strong>
+              <p>多年持续服务，形成稳定队伍与成熟课程体系，社会反馈良好。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+            <div class="logo white" style="width:64px;height:64px"><img src="assets/sdu-logo.png" alt="山东大学校徽"></div>
+            <div class="logo white" style="width:64px;height:64px"><img src="assets/quanxin-badge.jpg" alt="泉心支教团徽章"></div>
+            <div>
+              <div class="label">组织标识</div>
+              <h3>校徽与泉心徽章</h3>
+            </div>
+          </div>
+
+          <div class="mini-grid-2" style="margin-top:22px">
+            <div class="soft-card">
+              <div style="font-size:14px;font-weight:700;margin-bottom:10px">山东大学校徽</div>
+              <div style="background:#fff;border-radius:18px;padding:16px;box-shadow:inset 0 0 0 1px rgba(144,0,33,.04)">
+                <img src="assets/sdu-logo.png" alt="山东大学校徽" style="aspect-ratio:1/1;object-fit:contain">
+              </div>
+            </div>
+            <div class="soft-card">
+              <div style="font-size:14px;font-weight:700;margin-bottom:10px">泉心支教团徽章</div>
+              <div style="background:#fff;border-radius:18px;padding:16px;box-shadow:inset 0 0 0 1px rgba(144,0,33,.04)">
+                <img src="assets/quanxin-badge.jpg" alt="泉心支教团徽章" style="aspect-ratio:1/1;object-fit:contain">
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top:20px;background:var(--primary);color:rgba(255,255,255,.92);padding:18px;border-radius:18px;font-size:15px;line-height:1.8">
+            两个标识共同构成了泉心支教团的精神气质：既扎根山东大学的责任传统，也延续青年支教团队温暖、真诚与持续行动的公益表达。
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="footprint">
+    <div class="container">
+      <div class="section-title">
+        <div class="eyebrow">团队足迹</div>
+        <h2>从一地出发，把善意带向更多地方</h2>
+        <p>这张足迹图记录了泉心支教团历年来走过的服务地点。每一次启程，都是一次关于责任、教育与成长的真实实践。</p>
+      </div>
+
+      <div class="footprint-layout">
+        <div class="map-frame">
+          <div class="map-inner">
+            <img src="assets/footprint-map.png" alt="泉心支教团团队足迹图">
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:18px">
+          <div class="card" style="padding:28px">
+            <div style="display:flex;align-items:center;gap:12px">
+              <div class="icon-box" style="margin-bottom:0">🗺</div>
+              <div>
+                <div class="label">服务版图</div>
+                <h3 style="font-size:28px">足迹延展，初心不变</h3>
+              </div>
+            </div>
+            <p style="margin:16px 0 0;font-size:16px;line-height:1.9">
+              从西北乡村到华北平原，再到山东本地多个服务点，泉心支教团持续把课程、陪伴与青年力量带到更多需要的地方。足迹不仅是地图上的连接线，更是一次次真实相遇的证明。
+            </p>
+          </div>
+
+          <div class="mini-grid-2">
+            <div class="card" style="padding:24px">
+              <div class="icon-box">✨</div>
+              <strong style="font-size:20px">连续积累</strong>
+              <p>足迹图体现的是多年项目沉淀，也是团队持续服务能力的体现。</p>
+            </div>
+            <div class="card" style="padding:24px">
+              <div class="icon-box">❤</div>
+              <strong style="font-size:20px">温暖连接</strong>
+              <p>每一个地点背后，都是孩子、课堂、队员与地方之间建立起来的温暖联系。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="gallery">
+    <div class="container">
+      <div class="section-title">
+        <div class="eyebrow">支教风采</div>
+        <h2>那些被镜头定格的温暖时刻</h2>
+        <p>课堂里的专注、操场上的笑声、合影中的默契，共同构成泉心支教最真实也最动人的日常。</p>
+      </div>
+
+
+      <div class="gallery-grid">
+        <div class="gallery-item large">
+          <img src="assets/gallery-1.jpg" alt="围圈互动">
+          <div class="gallery-caption"><h4>围圈互动</h4><p>孩子与队员在互动中拉近距离，让课堂之外的陪伴也充满温度。</p></div>
+        </div>
+        <div class="gallery-item">
+          <img src="assets/gallery-2.jpg" alt="团队合影">
+          <div class="gallery-caption"><h4>团队合影</h4><p>在服务点前留下合影，把青春、责任与热爱定格在这一刻。</p></div>
+        </div>
+        <div class="gallery-item">
+          <img src="assets/gallery-3.jpg" alt="泉心队伍">
+          <div class="gallery-caption"><h4>泉心队伍</h4><p>一群人，一条路，用持续行动把善意带到更远的地方。</p></div>
+        </div>
+        <div class="gallery-item tall">
+          <img src="assets/gallery-4.jpg" alt="课堂互动">
+          <div class="gallery-caption"><h4>课堂互动</h4><p>把知识讲活，把孩子带动起来，让课堂真正成为成长的现场。</p></div>
+        </div>
+        <div class="gallery-item">
+          <img src="assets/gallery-5.jpg" alt="专注聆听">
+          <div class="gallery-caption"><h4>专注聆听</h4><p>认真看、认真想、认真学，每一次专注都值得被记录。</p></div>
+        </div>
+        <div class="gallery-item">
+          <img src="assets/gallery-6.jpg" alt="夏令营开营">
+          <div class="gallery-caption"><h4>夏令营开营</h4><p>开营仪式上的笑脸，开启了这个夏天最珍贵的一段成长记忆。</p></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="section" id="recruitment">
+    <div class="container">
+      <div class="section-title">
+        <div class="eyebrow">招新通道</div>
+        <h2>把热爱变成行动，把善意落到远方</h2>
+        <p>如果你也相信教育的力量，愿意用时间、耐心与责任感参与一次真实而温暖的公益实践，欢迎加入泉心。</p>
+      </div>
+
+      <div class="recruit-layout">
+        <div class="stack">
+          <div class="card">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px">
+              <div class="icon-box" style="margin-bottom:0">👥</div>
+              <div>
+                <h3 style="font-size:30px">招新要求</h3>
+                <p style="margin:4px 0 0">期待与你一起，把热忱带到更有需要的地方。</p>
+              </div>
+            </div>
+            <div class="mini-grid-2">
+              <div class="soft-card">认同公益理念，具备责任感与团队合作意识</div>
+              <div class="soft-card">在校本科生或研究生，能参加培训与线下活动</div>
+              <div class="soft-card">具备良好的沟通表达能力与执行力</div>
+              <div class="soft-card">有教学、策划、宣传或摄影特长者优先</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px">
+              <div class="icon-box" style="margin-bottom:0">🗓</div>
+              <div>
+                <h3 style="font-size:30px">面试时间轴</h3>
+                <p style="margin:4px 0 0">清晰了解招新流程，提前做好准备。</p>
+              </div>
+            </div>
+
+            <div class="timeline">
+              <div class="timeline-item">
+                <div class="timeline-node"><div class="timeline-badge">1</div><div class="timeline-line"></div></div>
+                <div><div class="label">4月上旬</div><strong>招新宣讲</strong><p>线上线下同步介绍支教项目、组织文化与岗位方向。</p></div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-node"><div class="timeline-badge">2</div><div class="timeline-line"></div></div>
+                <div><div class="label">4月中旬</div><strong>报名筛选</strong><p>提交报名表，完成基础信息登记与志愿意向选择。</p></div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-node"><div class="timeline-badge">3</div><div class="timeline-line"></div></div>
+                <div><div class="label">4月下旬</div><strong>面试考核</strong><p>围绕表达、协作、责任感与项目理解开展面试。</p></div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-node"><div class="timeline-badge">4</div></div>
+                <div><div class="label">5月上旬</div><strong>录用与培训</strong><p>统一开展课程设计、团队协作与支教前培训。</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="card">
+          <div class="cta-banner">
+            <div class="eyebrow" style="background:rgba(255,255,255,.10);border-color:rgba(255,255,255,.2);color:#fff">报名入口</div>
+            <h3 style="margin-top:10px;font-size:34px">期待你的加入</h3>
+            <p>扫描二维码填写报名表，或点击下方按钮进入在线报名通道。页面中的二维码与链接可替换为正式招新信息。</p>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 220px;gap:20px;align-items:center;margin-top:24px">
+            <div>
+              <div style="border:1px dashed rgba(144,0,33,.25);border-radius:20px;background:#fff;padding:20px">
+                <div class="muted" style="font-weight:700">报名提示</div>
+                <div style="margin-top:10px;font-size:14px;color:#374151;line-height:1.9">
+                  <div>1. 请完整填写个人信息、志愿方向与可参与时间。</div>
+                  <div>2. 关注后续面试通知，保持手机与邮箱畅通。</div>
+                  <div>3. 若有作品集、策划经历或志愿服务证明，可一并提交。</div>
+                </div>
+              </div>
+
+              <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:18px">
+                <a href="#" class="btn-primary">前往报名表 →</a>
+                <a href="#footer" class="btn-primary" style="background:#fff;color:var(--primary);border:1px solid rgba(144,0,33,.15)">联系我们</a>
+              </div>
+            </div>
+
+            <div class="qr-image-box">
+              <img src="assets/signup-qr.jpg" alt="报名二维码">
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <footer id="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div style="display:flex;align-items:center;gap:12px">
+            <div class="brand-logos">
+              <div class="logo white"><img src="assets/sdu-logo.png" alt="山东大学校徽"></div>
+              <div class="logo white"><img src="assets/quanxin-badge.jpg" alt="泉心支教团徽章"></div>
+            </div>
+            <div>
+              <div style="font-size:20px;font-weight:800">山东大学泉心支教团</div>
+              <div class="muted" style="font-size:14px">Quanxin Teaching Support Group</div>
+            </div>
+          </div>
+          <p class="muted" style="max-width:620px;margin-top:18px">
+            以青年人的真诚与行动，为乡村教育注入更多温暖与可能。欢迎关注泉心，见证每一次奔赴与成长。
+          </p>
+          <div class="muted" style="margin-top:18px;font-size:14px">© 2026 山东大学泉心支教团. All Rights Reserved.</div>
+        </div>
+
+        <div>
+          <div style="font-size:18px;font-weight:800">联系方式</div>
+          <div style="margin-top:16px">
+            <div class="contact-item"><span>☎</span><span>联系电话：123-4567-8910</span></div>
+            <div class="contact-item"><span>✉</span><span>联系邮箱：quanxin@sdu.edu.cn</span></div>
+            <div class="contact-item"><span>📍</span><span>山东大学（中心校区）学生公益组织活动空间</span></div>
+          </div>
+        </div>
+
+
+        <div>
+          <div style="font-size:18px;font-weight:800">公众号</div>
+          <div class="footer-qr-box">
+            <img src="assets/footer-qr.jpg" alt="公众号二维码">
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const slides = [
+      {
+        title: "泉心泉意，点亮星空",
+        text: "在陪伴、游戏与互动中，泉心把温暖带到孩子们身边，也把笑容留在每一次相遇里。",
+        image: "assets/hero-1.jpg"
+      },
+      {
+        title: "让课堂走进乡村，让成长被更多人看见",
+        text: "课堂活动、实践互动与日常陪伴，让知识真正走进孩子的生活，也走进他们的未来。",
+        image: "assets/hero-2.jpg"
+      },
+      {
+        title: "以青春之名，书写支教的温度",
+        text: "从夏令营开营到日常教学，泉心支教团用真诚和行动，记录下属于这个夏天的成长故事。",
+        image: "assets/hero-3.jpg"
+      }
+    ];
+
+    let current = 0;
+    const heroBg = document.getElementById('heroBg');
+    const heroTitle = document.getElementById('heroTitle');
+    const heroText = document.getElementById('heroText');
+    const dotsWrap = document.getElementById('dots');
+
+    function renderDots(){
+      dotsWrap.innerHTML = '';
+      slides.forEach((_, index) => {
+        const btn = document.createElement('button');
+        btn.className = 'dot' + (index === current ? ' active' : '');
+        btn.onclick = () => setSlide(index);
+        dotsWrap.appendChild(btn);
+      });
+    }
+
+    function setSlide(index){
+      current = index;
+      heroBg.style.opacity = 0.2;
+      setTimeout(() => {
+        heroBg.style.backgroundImage = `url('${slides[current].image}')`;
+        heroTitle.textContent = slides[current].title;
+        heroText.textContent = slides[current].text;
+        heroBg.style.opacity = 1;
+        renderDots();
+      }, 160);
+    }
+
+    function nextSlide(){ setSlide((current + 1) % slides.length); }
+    function prevSlide(){ setSlide((current - 1 + slides.length) % slides.length); }
+
+    document.getElementById('nextBtn').onclick = nextSlide;
+    document.getElementById('prevBtn').onclick = prevSlide;
+
+    setSlide(0);
+    setInterval(nextSlide, 5000);
+
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.style.display = mobileMenu.style.display === 'block' ? 'none' : 'block';
+    });
+    mobileMenu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => mobileMenu.style.display = 'none');
+    });
+  </script>
+</body>
+</html>
